@@ -1,6 +1,8 @@
-# OpenLayersFromPostGIS
-## Component PostGIS, OpenLayers, NodeJS, and Express
+# Part 2. OpenLayersFromPostGIS
+## Components: PostGIS, OpenLayers, NodeJS, and Express
 ### Imam Mustafa Kamal (201683609) &
+
+#### After sucessfully converting OSM data to PostGIS as shown in https://github.com/bscpnu/ConvertOsmPostGIS, in this part we display those data to the web. 
 
 Screenshot
 1. localhost:3000/map
