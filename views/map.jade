@@ -1,0 +1,273 @@
+extends layout
+block content
+  .flex-container
+    header
+      h1 Manchester City Map
+    .nav
+      .form-style-8
+        h3 #{title}
+      .form-style-9
+        form(action='/filter', name='filter')
+          select(name='name')
+            option(disabled='', selected='', value='All') Features...
+            option(value='road') Road
+            option(value='railroad') Railroad
+            option(value='building') Building
+            option(value='parking') Parking
+            option(value='park') Park
+            option(value='industrial') Industrial
+            option(value='barrier') Barrier
+            option(value='platform') Platform
+            option(value='playing_field') Playing Field
+            option(value='plaza') Plaza
+            option(value='water') Water
+            option(value='waterway') Waterway
+            option(value='grass') Grass
+            option(value='garden') Garden
+            option(value='All') All
+          input(type='submit', value='Submit')
+      .form-style-9
+        form(action='/rectangle', name='rectangle')
+          input(type='text', placeholder='x min', name='xmin')
+          input(type='text', placeholder='y min', name='ymin')
+          br
+          input(type='text', placeholder='x max', name='xmax')
+          input(type='text', placeholder='y max', name='ymax')
+          input(type='submit', value='Submit')
+          br
+          h5 Map's coordinate is within range (xmin, ymin, xmax, ymax) = (-2.2690,53.4656,-2.2139,53.4928)
+      .form-style-9
+          #info
+    .article
+      #map
+      script.
+          var styles = {
+            'human_built': {
+              'waterway': new ol.style.Style({
+                //zIndex: 100,
+                stroke: new ol.style.Stroke({
+                  color: 'rgba(128,0,128, 1.0)',
+                  width: 5
+                }),
+                fill: new ol.style.Fill({
+                  color: 'rgba(128,0,128, 1.0)'
+                })
+              }),
+              'railroad': new ol.style.Style({
+                stroke: new ol.style.Stroke({
+                  color: 'rgba(0, 0, 0, 1.0)',
+                  width: 2
+                }),
+                fill: new ol.style.Fill({
+                  color: 'rgba(0, 0, 0, 1.0)'
+                })
+              }),
+              'building': new ol.style.Style({
+                zIndex: 100,
+                stroke: new ol.style.Stroke({
+                  color: 'rgba(255, 0, 0, 1.0)',
+                  width: 1
+                }),
+                fill: new ol.style.Fill({
+                  color: 'rgba(255,0,0, 0.5)'
+                })
+              }),
+              'playing_field': new ol.style.Style({
+                zIndex: 100,
+                stroke: new ol.style.Stroke({
+                  color: 'rgba(25, 25, 112, 1.0)',
+                  width: 1
+                }),
+                fill: new ol.style.Fill({
+                  color: 'rgba(0, 128, 128, 1.0)'
+                })
+              }),
+              'grass': new ol.style.Style({
+                zIndex: 100,
+                stroke: new ol.style.Stroke({
+                  color: 'rgba(0,100,0, 1.0)',
+                  width: 1
+                }),
+                fill: new ol.style.Fill({
+                  color: 'rgba(0,100,0, 1.0)'
+                })
+              }),
+              'garden': new ol.style.Style({
+                zIndex: 100,
+                stroke: new ol.style.Stroke({
+                  color: 'rgba(124,252,0, 1.0)',
+                  width: 1
+                }),
+                fill: new ol.style.Fill({
+                  color: 'rgba(124,252,0, 1.0)'
+                })
+              }),
+              'plaza': new ol.style.Style({
+                zIndex: 100,
+                stroke: new ol.style.Stroke({
+                  color: 'rgba(25, 25, 112, 1.0)',
+                  width: 1
+                }),
+                fill: new ol.style.Fill({
+                  color: 'rgba(0,128,128, 1.0)'
+                })
+              }),
+              'parking': new ol.style.Style({
+                zIndex: 100,
+                stroke: new ol.style.Stroke({
+                  color: 'rgba(139, 69, 19, 1.0)',
+                  width: 1
+                }),
+                fill: new ol.style.Fill({
+                  color: 'rgba(255,215,0, 1.0)'
+                })
+              }),
+              'water': new ol.style.Style({
+                zIndex: 100,
+                stroke: new ol.style.Stroke({
+                  color: 'rgba(139, 69, 19, 1.0)',
+                  width: 1
+                }),
+                fill: new ol.style.Fill({
+                  color: 'rgba(0, 255, 255, 1.0)'
+                })
+              }),
+              'barrier': new ol.style.Style({
+                zIndex: 100,
+                stroke: new ol.style.Stroke({
+                  color: 'rgba(139, 69, 19, 1.0)',
+                  width: 1
+                }),
+                fill: new ol.style.Fill({
+                  color: 'rgba(210, 105, 30, 1.0)'
+                })
+              }),
+              'platform': new ol.style.Style({
+                zIndex: 100,
+                stroke: new ol.style.Stroke({
+                  color: 'rgba(139, 69, 19, 1.0)',
+                  width: 1
+                }),
+                fill: new ol.style.Fill({
+                  color: 'rgba(210, 105, 30, 1.0)'
+                })
+              }),
+              'road': new ol.style.Style({
+                //zIndex: 100,
+                stroke: new ol.style.Stroke({
+                  color: 'rgba(0, 0, 128, 1.0)',
+                  width: 3
+                }),
+                fill: new ol.style.Fill({
+                  color: 'rgba(128, 0, 0, 1.0)'
+                })
+              }),
+              'park': new ol.style.Style({
+                zIndex: 100,
+                stroke: new ol.style.Stroke({
+                  color: 'rgba(139, 69, 19, 1.0)',
+                  width: 1
+                }),
+                fill: new ol.style.Fill({
+                  color: 'rgba(255, 255, 0, 1.0)'
+                })
+              }),
+              'industrial': new ol.style.Style({
+                zIndex: 200,
+                stroke: new ol.style.Stroke({
+                  color: 'rgba(25,25,112, 1.0)',
+                  width: 1
+                }),
+                fill: new ol.style.Fill({
+                  color: 'rgba(123,104,238, 0.6)'
+                })
+              })
+            }
+          };
+          var myVar = !{jsonData};
+          /*var vectorSource = new ol.source.Vector({
+            url:'https://openlayers.org/en/v4.2.0/examples/data/geojson/countries.geojson',
+            format: new ol.format.GeoJSON()
+          });*/
+          var vectorSource = new ol.source.Vector({});
+          for(var i = 0; i < myVar.length; i++) {
+              var obj = myVar[i];
+              var sym1 = obj.sym1;
+              var n = obj.name;
+              var g = obj.geometry;
+
+              //console.log(sym1);
+              var format = new ol.format.GeoJSON();
+              var geom = format.readGeometry(g);
+              geom.transform('EPSG:4326', 'EPSG:3857');
+              var f = new ol.Feature({ sym1 : sym1, name : n, geometry : geom });
+              vectorSource.addFeature(f);
+          }
+          var vector = new ol.layer.Vector({
+          source: vectorSource,
+          style: function(feature) {
+            for (var key in styles) {
+              var value = feature.get('sym1');
+              console.log(value);
+              if (value !== undefined) {
+                for (var regexp in styles[key]) {
+                  if (new RegExp(regexp).test(value)) {
+                    return styles[key][regexp];
+                  }
+                }
+              }
+            }
+            return null;
+          }
+          });
+          var map = new ol.Map({
+              layers: [
+                  new ol.layer.Tile({
+                      source: new ol.source.OSM()
+                    }
+                  ),
+                  vector
+              ],
+              target: 'map',
+              view: new ol.View({
+                  //center: ol.proj.fromLonLat([-7.24917, 112.75083]),
+                  center: ol.proj.fromLonLat([-2.244644,53.483959]),
+                  //center: [0, 0],
+                  zoom: 15
+              })
+          });
+          // a normal select interaction to handle click
+          var select = new ol.interaction.Select();
+          map.addInteraction(select);
+          var selectedFeatures = select.getFeatures();
+
+          // a DragBox interaction used to select features by drawing boxes
+          var dragBox = new ol.interaction.DragBox({
+            condition: ol.events.condition.platformModifierKeyOnly
+          });
+          map.addInteraction(dragBox);
+          dragBox.on('boxend', function() {
+            // features that intersect the box are added to the collection of
+            // selected features
+            var extent = dragBox.getGeometry().getExtent();
+            vectorSource.forEachFeatureIntersectingExtent(extent, function(feature) {
+              selectedFeatures.push(feature);
+            });
+          });
+          // clear selection when drawing a new box and when clicking on the map
+          dragBox.on('boxstart', function() {
+            selectedFeatures.clear();
+          });
+          var infoBox = document.getElementById('info');
+          selectedFeatures.on(['add', 'remove'], function() {
+            var names = selectedFeatures.getArray().map(function(feature) {
+              return feature.get('name');
+            });
+            if (names.length > 0) {
+              infoBox.innerHTML = names.join(', ');
+            } else {
+              infoBox.innerHTML = '&nbsp;';
+            }
+          });
+    footer
+      h4 Copyright &copy; SDB Class-Pusan National University @2017
