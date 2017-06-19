@@ -1,7 +1,7 @@
 # Part 2. OpenLayersFromPostGIS
 ## Components: PostGIS, OpenLayers, NodeJS, and Express with Jade
-### Program Assigment SDB Class, Pusan National University 2017
-### Imam Mustafa Kamal (201683609) & Boubenna hadjer (201593278)
+#### Program Assigment SDB Class, Pusan National University 2017
+#### Imam Mustafa Kamal (201683609) & Boubenna hadjer (201593278)
 
 #### After sucessfully converting OSM data to PostGIS as shown in https://github.com/bscpnu/ConvertOsmPostGIS, in this part we display those data to the web. 
 
