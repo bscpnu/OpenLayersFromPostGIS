@@ -1,5 +1,6 @@
 # Part 2. OpenLayersFromPostGIS
 ## Components: PostGIS, OpenLayers, NodeJS, and Express with Jade
+### Program Assigment SDB Class, Pusan National University 2017
 ### Imam Mustafa Kamal (201683609) & Boubenna hadjer (201593278)
 
 #### After sucessfully converting OSM data to PostGIS as shown in https://github.com/bscpnu/ConvertOsmPostGIS, in this part we display those data to the web. 
@@ -27,4 +28,5 @@ Screenshot
 ![select rectangle](https://user-images.githubusercontent.com/29518994/27261816-8f46dcb2-5485-11e7-8586-1e2b06ef09ea.png)
 
 Query : SELECT sym1, COALESCE(name, sym1) As name, ST_AsGeoJSON(geom)::json As geometry FROM public.human_built WHERE geom && ST_MakeEnvelope(\'"+xmin+"\', \'"+ymin+"\', \'"+xmax+"\', \'"+ymax+"\', 4326).
+
 From above figure (point number 4), it can reveal that all the spatial object overlapping with the given rectangle coordinate will be included.
