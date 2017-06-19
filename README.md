@@ -10,10 +10,10 @@ Road, railroad, building, parking, park, industrial, barrier, platform, playing_
 
 First thing first, let's create an index for our data to make it more easily searchable using the following statement
 
---CREATE INDEX human_built_gist ON public.human_built USING gist (geom);
---CREATE INDEX human_landuse_gist ON public. human_landuse USING gist (geom);
---CREATE INDEX physiography_water_gist ON public. physiography_water USING gist (geom);
---CREATE INDEX physiography_life_gist ON public. physiography_life USING gist (geom);
+CREATE INDEX human_built_gist ON public.human_built USING gist (geom);
+<br>CREATE INDEX human_landuse_gist ON public. human_landuse USING gist (geom);
+<br>CREATE INDEX physiography_water_gist ON public. physiography_water USING gist (geom);
+<br>CREATE INDEX physiography_life_gist ON public. physiography_life USING gist (geom);
 
 Screenshot
 1. localhost:3000/map
